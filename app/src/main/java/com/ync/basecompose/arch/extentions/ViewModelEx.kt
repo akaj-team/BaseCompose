@@ -4,6 +4,7 @@ package androidx.lifecycle
 
 import com.ync.basecompose.arch.extentions.*
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
 /**
  * Copyright © Monstarlab Vietnam Co., Ltd.
@@ -14,6 +15,12 @@ private const val LOADING_FLOW_KEY = "androidx.lifecycle.LoadingFlow"
 
 suspend fun <T> T.emitErrorModel(throwable: Throwable) where T : ViewErrorAware, T : ViewModel {
     errorMutableSharedFlow.emit(throwable)
+}
+
+fun <T> T.dismissError() where T : ViewErrorAware, T : ViewModel {
+    viewModelScope.launch {
+        errorMutableSharedFlow.emit(Throwable())
+    }
 }
 
 val <T> T.viewErrorFlow: SharedFlow<Throwable> where T : ViewErrorAware, T : ViewModel

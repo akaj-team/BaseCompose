@@ -28,7 +28,7 @@ sealed class ErrorModel : Throwable() {
             val apiUrl: String?,
         ) : Http() {
             override fun isCommonError(): Boolean {
-                if (code == HttpURLConnection.HTTP_UNAUTHORIZED.toString() && apiUrl?.contains("auth/login") != true
+                if (code == HttpURLConnection.HTTP_UNAUTHORIZED.toString()
                     || code == HttpURLConnection.HTTP_INTERNAL_ERROR.toString()
                     || code == ApiErrorDetailCode.SERVER_MAINTENANCE_9001.code
                     || code == ApiErrorDetailCode.FORCE_UPDATE.code
