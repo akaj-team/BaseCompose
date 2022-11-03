@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLifecycleOwner
@@ -24,6 +25,7 @@ import com.ync.basecompose.data.network.error.ErrorModel
 fun BaseScreen(
     viewModel: BaseViewModel? = null,
     background: Color = Color.White,
+    contentAlignment: Alignment = Alignment.TopStart,
     onErrorClicked: (ErrorModel) -> Unit = {},
     onCreate: () -> Unit = {},
     onStart: () -> Unit = {},
@@ -52,7 +54,8 @@ fun BaseScreen(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
-            .background(background)
+            .background(background),
+        contentAlignment = contentAlignment
     ) {
         content.invoke(this)
     }

@@ -1,17 +1,16 @@
 package com.ync.basecompose.ui.features.splash
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.Text
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.dp
+import com.ync.basecompose.R
+import com.ync.basecompose.ui.components.BaseScreen
 import kotlinx.coroutines.delay
 
 /**
@@ -21,17 +20,15 @@ import kotlinx.coroutines.delay
 @Composable
 fun SplashScreen(onNextScreen: () -> Unit) {
     LaunchedEffect(key1 = true) {
-        delay(3000L)
+        delay(2000L)
         onNextScreen.invoke()
     }
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .background(Color.White),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = "Splash", fontSize = 20.sp)
+    BaseScreen(contentAlignment = Alignment.Center) {
+        Image(
+            painter = painterResource(id = R.drawable.img_splash),
+            contentDescription = null,
+            Modifier.padding(30.dp)
+        )
     }
 }
 
