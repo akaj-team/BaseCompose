@@ -62,7 +62,7 @@ class RestModule {
         return clientBuilder.build()
     }
 
-    private fun getUserAgent(): String = "Simba/${BuildConfig.VERSION_NAME}/android"
+    private fun getUserAgent(): String = ""
 
     @Provides
     @Singleton
