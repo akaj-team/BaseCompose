@@ -12,7 +12,7 @@
 /captures
 .externalNativeBuild
 .cxx
-.idea
+.idea/
 vendor/
 .bundle
 /.gradle-cache
