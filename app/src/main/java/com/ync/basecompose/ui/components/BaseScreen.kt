@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLifecycleOwner
@@ -22,8 +23,9 @@ import com.ync.basecompose.data.network.error.ErrorModel
  */
 @Composable
 fun BaseScreen(
-    viewModel: BaseViewModel,
+    viewModel: BaseViewModel? = null,
     background: Color = Color.White,
+    contentAlignment: Alignment = Alignment.TopStart,
     onErrorClicked: (ErrorModel) -> Unit = {},
     onCreate: () -> Unit = {},
     onStart: () -> Unit = {},
@@ -34,22 +36,26 @@ fun BaseScreen(
     content: @Composable() BoxScope.() -> Unit,
 ) {
     val lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
-    val loadingState by viewModel.loadingFlow.collectAsState()
-    val commonErrorState by viewModel.viewErrorFlow.collectAsState(Throwable())
-    Loading(isShow = loadingState)
-    CommonError(throwable = commonErrorState) {
-        viewModel.dismissError()
-        if (it.isCommonError()) {
-            // TODO: Handle late
-        } else {
-            onErrorClicked.invoke(it)
+    viewModel?.run {
+        val loadingState by loadingFlow.collectAsState()
+        val commonErrorState by viewErrorFlow.collectAsState(Throwable())
+        Loading(isShow = loadingState)
+        CommonError(throwable = commonErrorState) {
+            dismissError()
+            if (it.isCommonError()) {
+                // TODO: Handle late
+            } else {
+                onErrorClicked.invoke(it)
+            }
         }
     }
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
-            .background(background)
+            .background(background),
+        contentAlignment = contentAlignment
     ) {
         content.invoke(this)
     }
