@@ -2,6 +2,7 @@ package com.ync.basecompose.data.remote
 
 import com.ync.basecompose.arch.extentions.apiCall
 import com.ync.basecompose.data.network.Api
+import com.ync.basecompose.data.network.response.DetailCoinResponse
 import com.ync.basecompose.data.network.response.TrendingResponse
 import javax.inject.Inject
 
@@ -14,5 +15,9 @@ class SearchRemoteDataSource @Inject constructor(
 ) {
     suspend fun getTrending(): TrendingResponse = apiCall {
         api.getTrending()
+    }
+
+    suspend fun getDetailCoin(id: String): DetailCoinResponse = apiCall {
+        api.getDetailCoin(id)
     }
 }

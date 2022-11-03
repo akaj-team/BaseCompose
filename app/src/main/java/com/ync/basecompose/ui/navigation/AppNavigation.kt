@@ -5,9 +5,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import com.ync.basecompose.arch.consts.Arguments
+import com.ync.basecompose.ui.features.detail.DetailCoinScreen
 import com.ync.basecompose.ui.features.home.HomeScreen
 import com.ync.basecompose.ui.features.splash.SplashScreen
 
@@ -26,6 +30,7 @@ fun AppNavigation(modifier: Modifier = Modifier) {
     ) {
         addSplashScreen(navController)
         addHomeScreen(navController)
+        addDetailCoinScreen(navController)
     }
 }
 
@@ -52,6 +57,21 @@ private fun NavGraphBuilder.addHomeScreen(
         exitTransition = { defaultExitTransition(initialState, targetState) },
         enterTransition = { defaultEnterTransition(initialState, targetState) }
     ) {
-        HomeScreen()
+        HomeScreen(navController)
+    }
+}
+
+@OptIn(ExperimentalAnimationApi::class)
+private fun NavGraphBuilder.addDetailCoinScreen(navController: NavController) {
+    composable(
+        route = AppScreens.DetailCoin.rotate + "/${Arguments.KEY_COIN_ID}",
+        arguments = listOf(navArgument(Arguments.KEY_COIN_ID) {
+            type = NavType.StringType
+            defaultValue = ""
+            nullable = true
+        }),
+        exitTransition = { defaultExitTransition(initialState, targetState) },
+        enterTransition = { defaultEnterTransition(initialState, targetState) }) { entry ->
+        DetailCoinScreen(entry.arguments?.getString(Arguments.KEY_COIN_ID) ?: "")
     }
 }

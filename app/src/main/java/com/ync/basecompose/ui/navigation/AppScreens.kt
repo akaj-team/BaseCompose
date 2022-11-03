@@ -7,4 +7,6 @@ package com.ync.basecompose.ui.navigation
 sealed class AppScreens(var rotate: String) {
     object Splash : AppScreens("splash_screen")
     object Home : AppScreens("home_screen")
+    object DetailCoin : AppScreens("detail_coin")
+
 }

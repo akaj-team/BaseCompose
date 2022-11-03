@@ -12,4 +12,8 @@ class SearchRepository @Inject constructor(private val searchRemoteDataSource: S
     fun getTrending() = safeFlow {
         searchRemoteDataSource.getTrending()
     }
+
+    fun getDetailCoin(id: String) = safeFlow {
+        searchRemoteDataSource.getDetailCoin(id)
+    }
 }
