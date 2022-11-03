@@ -11,9 +11,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.lifecycle.dismissError
-import androidx.lifecycle.loadingFlow
-import androidx.lifecycle.viewErrorFlow
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.*
 import com.ync.basecompose.arch.base.BaseViewModel
@@ -35,7 +32,7 @@ fun BaseScreen(
     onStop: () -> Unit = {},
     onDestroy: () -> Unit = {},
     content: @Composable() BoxScope.() -> Unit,
-    ) {
+) {
     val lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
     val loadingState by viewModel.loadingFlow.collectAsState()
     val commonErrorState by viewModel.viewErrorFlow.collectAsState(Throwable())
