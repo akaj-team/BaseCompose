@@ -26,7 +26,9 @@ import com.ync.basecompose.ui.components.BaseScreen
 fun HomeScreen() {
     val viewModel: HomeViewModel = hiltViewModel()
     val viewState by viewModel.homeUiViewState.collectAsState()
-    BaseScreen(viewModel = viewModel, background = Color.White) {
+    BaseScreen(viewModel = viewModel, background = Color.White, onCreate = {
+        viewModel.getTrending()
+    }) {
         ItemListView(items = viewState.item)
     }
 }
