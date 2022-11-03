@@ -1,6 +1,7 @@
 package com.ync.basecompose
 
-import android.app.Application
+import androidx.multidex.MultiDex
+import androidx.multidex.MultiDexApplication
 import dagger.hilt.android.HiltAndroidApp
 
 /**
@@ -8,4 +9,9 @@ import dagger.hilt.android.HiltAndroidApp
  * Created by mvn-ynguyen-dn on 11/1/22.
  */
 @HiltAndroidApp
-class App : Application()
+class App : MultiDexApplication() {
+    override fun onCreate() {
+        super.onCreate()
+        MultiDex.install(this)
+    }
+}

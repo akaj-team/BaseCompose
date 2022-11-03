@@ -16,6 +16,7 @@ android {
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
+        multiDexEnabled = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -102,6 +103,7 @@ dependencies {
     //Lifecycle
     implementation("androidx.preference:preference-ktx:1.2.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
     implementation("androidx.lifecycle:lifecycle-common-java8:2.5.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
 
@@ -112,4 +114,11 @@ dependencies {
 
     //Coil Image loader
     implementation("io.coil-kt:coil-compose:2.2.2")
+
+    implementation("androidx.multidex:multidex:2.0.1")
+
+    // EncryptedSharedPreferences
+    implementation("androidx.security:security-crypto:1.0.0")
+
+
 }
