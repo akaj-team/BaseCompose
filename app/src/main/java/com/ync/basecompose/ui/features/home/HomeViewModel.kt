@@ -20,10 +20,6 @@ class HomeViewModel @Inject constructor(private val searchRepository: SearchRepo
     BaseViewModel(), HomeVMContract {
     val homeUiViewState = MutableStateFlow(HomeUiViewState())
 
-    init {
-        getTrending()
-    }
-
     override fun getTrending() {
         searchRepository.getTrending()
             .bindLoading(this)
