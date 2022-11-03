@@ -21,7 +21,7 @@ fun AppNavigation(modifier: Modifier = Modifier) {
     val navController = rememberAnimatedNavController()
     AnimatedNavHost(
         navController = navController,
-        startDestination = AppScreens.Splash.rotate,
+        startDestination = AppScreens.Splash.route,
         modifier = modifier
     ) {
         addSplashScreen(navController)
@@ -32,10 +32,10 @@ fun AppNavigation(modifier: Modifier = Modifier) {
 
 @OptIn(ExperimentalAnimationApi::class)
 private fun NavGraphBuilder.addSplashScreen(navController: NavController) {
-    composable(route = AppScreens.Splash.rotate) {
+    composable(route = AppScreens.Splash.route) {
         SplashScreen {
-            navController.navigate(AppScreens.Home.rotate) {
-                popUpTo(route = AppScreens.Splash.rotate) {
+            navController.navigate(AppScreens.Home.route) {
+                popUpTo(route = AppScreens.Splash.route) {
                     inclusive = true
                 }
             }
@@ -48,7 +48,7 @@ private fun NavGraphBuilder.addHomeScreen(
     navController: NavController
 ) {
     composable(
-        route = AppScreens.Home.rotate,
+        route = AppScreens.Home.route,
         exitTransition = { defaultExitTransition(initialState, targetState) },
         enterTransition = { defaultEnterTransition(initialState, targetState) }
     ) {
