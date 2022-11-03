@@ -1,7 +1,7 @@
 package com.ync.basecompose.data
 
 interface LocalDataSource {
-    fun getName(): String?
+    fun getAcesstoken(): String?
 
-    fun saveName(name: String)
+    fun saveAcessToken(acessToken: String)
 }

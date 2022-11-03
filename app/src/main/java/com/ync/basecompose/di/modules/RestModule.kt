@@ -43,7 +43,7 @@ class RestModule {
             requestBuilder.addHeader("User-Agent", getUserAgent())
             requestBuilder.addHeader(
                 "Authorization",
-                "Bearer"
+                "token ${localRepository.getAcesstoken()}"
             )
             val request = requestBuilder.build()
             chain
