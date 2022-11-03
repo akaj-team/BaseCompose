@@ -39,7 +39,7 @@ fun BaseScreen(
         val commonErrorState by viewErrorFlow.collectAsState(Throwable())
         Loading(isShow = loadingState)
         CommonError(throwable = commonErrorState) {
-            viewModel?.dismissError()
+            dismissError()
             if (it.isCommonError()) {
                 // TODO: Handle late
             } else {
