@@ -2,7 +2,6 @@ package com.ync.basecompose.arch.extentions
 
 import com.ync.basecompose.data.network.error.ErrorModel
 import com.ync.basecompose.data.network.response.ErrorResponse
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import retrofit2.Response
@@ -27,14 +26,9 @@ inline fun <T, R> Response<T>.mapSuccess(
 
 private val json = Json { ignoreUnknownKeys = true }
 
-@OptIn(ExperimentalSerializationApi::class)
 fun <T> Response<T>.toError(): ErrorModel.Http {
     val error = json.decodeFromString<ErrorResponse>(errorBody()?.string() ?: "")
-    val message = if (error.errors.isNullOrEmpty()) {
-        error.message
-    } else {
-        error.errors?.first()?.message
-    }
+    val message = error.error
     return ErrorModel.Http.ApiError(
         code = code().toString(),
         message = message
