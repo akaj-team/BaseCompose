@@ -12,7 +12,6 @@
 /captures
 .externalNativeBuild
 .cxx
-.idea
 vendor/
 .bundle
 /.gradle-cache
