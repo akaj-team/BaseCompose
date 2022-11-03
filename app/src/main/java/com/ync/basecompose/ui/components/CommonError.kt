@@ -11,7 +11,7 @@ import com.ync.basecompose.data.network.error.ErrorModel
  * Created by mvn-ynguyen-dn on 11/2/22.
  */
 @Composable
-fun CommonError(throwable: Throwable?) {
+fun CommonError(throwable: Throwable?, onErrorClicked: (ErrorModel) -> Unit) {
     (throwable as? ErrorModel)?.apply {
         AlertDialog(
             onDismissRequest = {
@@ -25,9 +25,9 @@ fun CommonError(throwable: Throwable?) {
             confirmButton = {
             },
             dismissButton = {
-                Button(
-                    onClick = {
-                    }) {
+                Button(onClick = {
+                    onErrorClicked.invoke(this)
+                }) {
                     Text("Ok")
                 }
             }

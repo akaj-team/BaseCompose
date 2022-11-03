@@ -2,6 +2,7 @@ package com.ync.basecompose.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
@@ -10,9 +11,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.lifecycle.dismissError
+import androidx.lifecycle.loadingFlow
+import androidx.lifecycle.viewErrorFlow
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.*
 import com.ync.basecompose.arch.base.BaseViewModel
+import com.ync.basecompose.data.network.error.ErrorModel
 
 /**
  * Copyright © Monstarlab Vietnam Co., Ltd.
@@ -21,26 +26,35 @@ import com.ync.basecompose.arch.base.BaseViewModel
 @Composable
 fun BaseScreen(
     viewModel: BaseViewModel,
-    content: @Composable () -> Unit,
+    background: Color = Color.White,
+    onErrorClicked: (ErrorModel) -> Unit = {},
     onCreate: () -> Unit = {},
     onStart: () -> Unit = {},
     onResume: () -> Unit = {},
     onPause: () -> Unit = {},
     onStop: () -> Unit = {},
-    onDestroy: () -> Unit = {}
-) {
+    onDestroy: () -> Unit = {},
+    content: @Composable() BoxScope.() -> Unit,
+    ) {
     val lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
     val loadingState by viewModel.loadingFlow.collectAsState()
     val commonErrorState by viewModel.viewErrorFlow.collectAsState(Throwable())
     Loading(isShow = loadingState)
-    CommonError(throwable = commonErrorState)
+    CommonError(throwable = commonErrorState) {
+        viewModel.dismissError()
+        if (it.isCommonError()) {
+            // TODO: Handle late
+        } else {
+            onErrorClicked.invoke(it)
+        }
+    }
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
-            .background(Color.White)
+            .background(background)
     ) {
-        content.invoke()
+        content.invoke(this)
     }
 
     //handle lifecycle event

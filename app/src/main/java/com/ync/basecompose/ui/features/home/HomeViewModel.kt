@@ -26,8 +26,7 @@ class HomeViewModel @Inject constructor(private val searchRepository: SearchRepo
             .bindError(this)
             .onSuccess { response ->
                 homeUiViewState.value = HomeUiViewState(item = response.coins.map { it.item })
-            }
-            .launchIn(viewModelScope)
+            }.launchIn(viewModelScope)
     }
 
 }

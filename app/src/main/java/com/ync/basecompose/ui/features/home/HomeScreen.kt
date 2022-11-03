@@ -11,6 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
@@ -25,12 +26,11 @@ import com.ync.basecompose.ui.components.BaseScreen
 fun HomeScreen() {
     val viewModel: HomeViewModel = hiltViewModel()
     val viewState by viewModel.homeUiViewState.collectAsState()
-    BaseScreen(viewModel = viewModel,
-        content = { ItemListView(items = viewState.item) },
-        onCreate = {
-            viewModel.getTrending()
-        }
-    )
+    BaseScreen(viewModel = viewModel, background = Color.White, onCreate = {
+        viewModel.getTrending()
+    }) {
+        ItemListView(items = viewState.item)
+    }
 }
 
 @Composable
