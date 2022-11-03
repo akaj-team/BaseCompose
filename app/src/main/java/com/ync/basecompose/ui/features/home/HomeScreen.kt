@@ -28,7 +28,6 @@ fun HomeScreen(id: Long) {
     val viewModel: HomeViewModel = hiltViewModel()
     val viewState by viewModel.homeUiViewState.collectAsState()
     BaseScreen(viewModel = viewModel, background = Color.White, onCreate = {
-        Log.d("TAG11", "id:$id")
         viewModel.getTrending()
     }) {
         ItemListView(items = viewState.item)
