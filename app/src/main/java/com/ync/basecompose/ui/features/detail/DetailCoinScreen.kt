@@ -35,7 +35,11 @@ fun DetailCoinScreen(navController: NavController, id: String, imageCoin: String
 
     BaseScreen(viewModel = viewModel, onCreate = {
         viewModel.getDetailCoin(id)
-    }) {
+    },
+        onErrorClicked = {
+            navController.navigateUp()
+        }
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
