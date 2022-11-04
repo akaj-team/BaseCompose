@@ -3,7 +3,6 @@ package com.ync.basecompose.ui.navigation
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import com.ync.basecompose.ui.navigation.AppScreens.Home.route
 
 /**
  * Copyright © Monstarlab Vietnam Co., Ltd.
@@ -19,11 +18,16 @@ sealed class AppScreens(var route: String) {
     ) {
         // Home
         HOME_ID("id", Home.route, NavType.LongType, -1L),
+
+        // Detail Coin
+        COIN_ID("coin_id", DetailCoin.route, NavType.StringType, ""),
+        COIN_IMAGE("coin_image", DetailCoin.route, NavType.StringType, ""),
     }
 
     // Define route screen
     object Splash : AppScreens("splash_screen")
     object Home : AppScreens("home_screen")
+    object DetailCoin : AppScreens("detail_coin")
 
     fun routeWithArgsValue(vararg value: Pair<String, Any>): String {
         var routeArg = routeArgs()

@@ -5,10 +5,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,6 +33,9 @@ fun BaseScreen(
     onDestroy: () -> Unit = {},
     content: @Composable() BoxScope.() -> Unit,
 ) {
+    var isFirstLaunched by rememberSaveable {
+        mutableStateOf(true)
+    }
     val lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
     viewModel?.run {
         val loadingState by loadingFlow.collectAsState()
@@ -64,8 +65,15 @@ fun BaseScreen(
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             when (event) {
-                Lifecycle.Event.ON_CREATE -> onCreate.invoke()
-                Lifecycle.Event.ON_START -> onStart.invoke()
+                Lifecycle.Event.ON_CREATE ->
+                    if (isFirstLaunched) {
+                        onCreate.invoke()
+                    }
+                Lifecycle.Event.ON_START -> {
+                    if (isFirstLaunched) {
+                        onStart.invoke()
+                    }
+                }
                 Lifecycle.Event.ON_RESUME -> onResume.invoke()
                 Lifecycle.Event.ON_PAUSE -> onPause.invoke()
                 Lifecycle.Event.ON_STOP -> onStop.invoke()
@@ -77,6 +85,7 @@ fun BaseScreen(
         lifecycleOwner.lifecycle.addObserver(observer)
         // When the effect leaves the Composition, remove the observer
         onDispose {
+            isFirstLaunched = false
             lifecycleOwner.lifecycle.removeObserver(observer)
         }
     }
