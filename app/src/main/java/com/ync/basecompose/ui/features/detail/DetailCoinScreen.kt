@@ -1,5 +1,6 @@
 package com.ync.basecompose.ui.features.detail
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -26,7 +27,7 @@ import com.ync.basecompose.ui.components.BaseScreen
 
 @Composable
 fun DetailCoinScreen(id: String) {
-
+    Log.d("XXX", "id : $id")
     val viewModel: DetailCoinViewModel = hiltViewModel()
     val viewState by viewModel.detailCoinUiViewState.collectAsState()
 

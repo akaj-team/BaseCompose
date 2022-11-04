@@ -19,6 +19,9 @@ sealed class AppScreens(var route: String) {
     ) {
         // Home
         HOME_ID("id", route, NavType.LongType, -1L),
+
+        // Detail Coin
+        COIN_ID("id", route, NavType.StringType, ""),
     }
 
     // Define route screen

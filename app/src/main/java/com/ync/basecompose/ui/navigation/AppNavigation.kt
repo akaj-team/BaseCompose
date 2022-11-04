@@ -5,12 +5,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavType
-import androidx.navigation.navArgument
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-import com.ync.basecompose.arch.consts.Arguments
 import com.ync.basecompose.ui.features.detail.DetailCoinScreen
 import com.ync.basecompose.ui.features.home.HomeScreen
 import com.ync.basecompose.ui.features.splash.SplashScreen
@@ -39,7 +36,7 @@ fun AppNavigation(modifier: Modifier = Modifier) {
 private fun NavGraphBuilder.addSplashScreen(navController: NavController) {
     composable(route = AppScreens.Splash.route) {
         SplashScreen {
-            navController.navigate(AppScreens.Home.routeWithArgsValue(AppScreens.ARGUMENT.HOME_ID.key to 1L)) {
+            navController.navigate(AppScreens.Home.route) {
                 popUpTo(route = AppScreens.Splash.route) {
                     inclusive = true
                 }
@@ -52,28 +49,19 @@ private fun NavGraphBuilder.addSplashScreen(navController: NavController) {
 private fun NavGraphBuilder.addHomeScreen(
     navController: NavController
 ) {
-    composable(
-        route = AppScreens.Home.routeArgs(),
-        arguments = AppScreens.Home.namedNavArgs(),
+    composable(route = AppScreens.Home.route,
         exitTransition = { defaultExitTransition(initialState, targetState) },
-        enterTransition = { defaultEnterTransition(initialState, targetState) }
-    ) {
-        val id = it.arguments?.getLong(AppScreens.ARGUMENT.HOME_ID.key, -1L) ?: -1L
-        HomeScreen(id,navController)
+        enterTransition = { defaultEnterTransition(initialState, targetState) }) {
+        HomeScreen(navController)
     }
 }
 
 @OptIn(ExperimentalAnimationApi::class)
 private fun NavGraphBuilder.addDetailCoinScreen(navController: NavController) {
-    composable(
-        route = AppScreens.DetailCoin.rotate + "/${Arguments.KEY_COIN_ID}",
-        arguments = listOf(navArgument(Arguments.KEY_COIN_ID) {
-            type = NavType.StringType
-            defaultValue = ""
-            nullable = true
-        }),
+    composable(route = AppScreens.DetailCoin.routeArgs(),
+        arguments = AppScreens.DetailCoin.namedNavArgs(),
         exitTransition = { defaultExitTransition(initialState, targetState) },
-        enterTransition = { defaultEnterTransition(initialState, targetState) }) { entry ->
-        DetailCoinScreen(entry.arguments?.getString(Arguments.KEY_COIN_ID) ?: "")
+        enterTransition = { defaultEnterTransition(initialState, targetState) }) {
+        DetailCoinScreen(it.arguments?.getString(AppScreens.ARGUMENT.COIN_ID.key) ?: "")
     }
 }
