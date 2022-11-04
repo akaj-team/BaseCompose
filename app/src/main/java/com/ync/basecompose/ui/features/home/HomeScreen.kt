@@ -1,5 +1,6 @@
 package com.ync.basecompose.ui.features.home
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -23,7 +24,7 @@ import com.ync.basecompose.ui.components.BaseScreen
  * Created by mvn-ynguyen-dn on 11/1/22.
  */
 @Composable
-fun HomeScreen() {
+fun HomeScreen(id: Long) {
     val viewModel: HomeViewModel = hiltViewModel()
     val viewState by viewModel.homeUiViewState.collectAsState()
     BaseScreen(viewModel = viewModel, background = Color.White, onCreate = {
