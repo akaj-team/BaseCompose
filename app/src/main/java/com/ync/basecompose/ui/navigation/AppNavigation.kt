@@ -39,7 +39,7 @@ fun AppNavigation(modifier: Modifier = Modifier) {
 private fun NavGraphBuilder.addSplashScreen(navController: NavController) {
     composable(route = AppScreens.Splash.route) {
         SplashScreen {
-            navController.navigate(AppScreens.Home.route) {
+            navController.navigate(AppScreens.Home.routeWithArgsValue(AppScreens.ARGUMENT.HOME_ID.key to 1L)) {
                 popUpTo(route = AppScreens.Splash.route) {
                     inclusive = true
                 }
@@ -53,11 +53,13 @@ private fun NavGraphBuilder.addHomeScreen(
     navController: NavController
 ) {
     composable(
-        route = AppScreens.Home.route,
+        route = AppScreens.Home.routeArgs(),
+        arguments = AppScreens.Home.namedNavArgs(),
         exitTransition = { defaultExitTransition(initialState, targetState) },
         enterTransition = { defaultEnterTransition(initialState, targetState) }
     ) {
-        HomeScreen(navController)
+        val id = it.arguments?.getLong(AppScreens.ARGUMENT.HOME_ID.key, -1L) ?: -1L
+        HomeScreen(id,navController)
     }
 }
 
