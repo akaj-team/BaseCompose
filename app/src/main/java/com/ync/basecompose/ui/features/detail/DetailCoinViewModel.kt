@@ -1,6 +1,5 @@
 package com.ync.basecompose.ui.features.detail
 
-import android.util.Log
 import androidx.lifecycle.bindError
 import androidx.lifecycle.bindLoading
 import androidx.lifecycle.viewModelScope

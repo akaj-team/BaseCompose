@@ -1,6 +1,5 @@
 package com.ync.basecompose.ui.navigation
 
-import android.util.Log
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
