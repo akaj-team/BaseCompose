@@ -18,7 +18,7 @@ sealed class AppScreens(var route: String) {
         var defaultValue: Any
     ) {
         // Home
-        HOME_ID("id", route, NavType.LongType, -1L),
+        HOME_ID("id", Home.route, NavType.LongType, -1L),
     }
 
     // Define route screen
