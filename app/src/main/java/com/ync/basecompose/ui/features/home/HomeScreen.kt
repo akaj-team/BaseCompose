@@ -1,6 +1,5 @@
 package com.ync.basecompose.ui.features.home
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -46,7 +45,12 @@ fun ItemListView(items: List<Item>, navController: NavController) {
                     .fillMaxWidth()
                     .padding(10.dp)
                     .clickable {
-                        navController.navigate(AppScreens.DetailCoin.routeWithArgsValue(AppScreens.ARGUMENT.COIN_ID.key to item.id))
+                        navController.navigate(
+                            AppScreens.DetailCoin.routeWithArgsValue(
+                                AppScreens.ARGUMENT.COIN_ID.key to item.id,
+                                AppScreens.ARGUMENT.COIN_IMAGE.key to item.large
+                            )
+                        )
                     }, verticalAlignment = Alignment.CenterVertically
             ) {
                 AsyncImage(

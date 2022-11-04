@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">BaseCompose</string>
+    <string name="decimal_place">Decimal Place : %s</string>
+    <string name="contract_address">Contract Address: %s</string>
+    <string name="platform">Platform: %s</string>
+    <string name="detail_screen_title">"Detail Coin"</string>
+    <string name="available_platform_title">"Available Platform"</string>
 </resources>

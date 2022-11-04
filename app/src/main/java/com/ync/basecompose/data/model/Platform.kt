@@ -8,6 +8,6 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Platform(
-    @SerialName("decimal_place") val decimalPlace: String,
+    @SerialName("decimal_place") val decimalPlace: Int,
     @SerialName("contract_address") val contractAddress: String,
 )

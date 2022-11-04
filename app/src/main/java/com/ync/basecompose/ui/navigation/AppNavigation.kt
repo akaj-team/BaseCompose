@@ -1,5 +1,6 @@
 package com.ync.basecompose.ui.navigation
 
+import android.util.Log
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -62,6 +63,10 @@ private fun NavGraphBuilder.addDetailCoinScreen(navController: NavController) {
         arguments = AppScreens.DetailCoin.namedNavArgs(),
         exitTransition = { defaultExitTransition(initialState, targetState) },
         enterTransition = { defaultEnterTransition(initialState, targetState) }) {
-        DetailCoinScreen(it.arguments?.getString(AppScreens.ARGUMENT.COIN_ID.key) ?: "")
+        DetailCoinScreen(
+            navController,
+            it.arguments?.getString(AppScreens.ARGUMENT.COIN_ID.key) ?: "",
+            it.arguments?.getString(AppScreens.ARGUMENT.COIN_IMAGE.key) ?: ""
+        )
     }
 }
