@@ -1,5 +1,6 @@
 package com.ync.basecompose.ui.features.home
 
+import androidx.compose.foundation.clickable
 import android.util.Log
 import androidx.annotation.FloatRange
 import androidx.annotation.StringRes
@@ -40,10 +41,12 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.os.ConfigurationCompat
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.ync.basecompose.R
 import com.ync.basecompose.data.model.Item
 import com.ync.basecompose.ui.components.BaseScreen
+import com.ync.basecompose.ui.navigation.AppScreens
 import com.ync.basecompose.ui.components.JetsnackSurface
 import com.ync.basecompose.ui.navigation.AppScreens
 import com.ync.basecompose.ui.theme.BaseComposeTheme
@@ -55,7 +58,7 @@ import kotlin.math.roundToInt
  * Created by mvn-ynguyen-dn on 11/1/22.
  */
 @Composable
-fun HomeScreen(id: Long) {
+fun HomeScreen(navController: NavController) {
     val viewModel: HomeViewModel = hiltViewModel()
     val viewState by viewModel.homeUiViewState.collectAsState()
     BaseScreen(viewModel = viewModel, background = Color.White, onCreate = {
@@ -73,20 +76,27 @@ fun HomeScreen(id: Long) {
             }
         ) { it ->
             Log.d("XXX","$it")
-            ItemListView(items = viewState.item)
+            ItemListView(items = viewState.item, navController)
         }
     }
 }
 
 @Composable
-fun ItemListView(items: List<Item>) {
+fun ItemListView(items: List<Item>, navController: NavController) {
     LazyColumn {
         items(items) { item ->
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(10.dp),
-                verticalAlignment = Alignment.CenterVertically
+                    .padding(10.dp)
+                    .clickable {
+                        navController.navigate(
+                            AppScreens.DetailCoin.routeWithArgsValue(
+                                AppScreens.ARGUMENT.COIN_ID.key to item.id,
+                                AppScreens.ARGUMENT.COIN_IMAGE.key to item.large
+                            )
+                        )
+                    }, verticalAlignment = Alignment.CenterVertically
             ) {
                 AsyncImage(
                     model = item.large, contentDescription = "", modifier = Modifier.clip(
