@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -37,11 +38,11 @@ fun AppNavigation(modifier: Modifier = Modifier) {
         if (isShouldShowBottomBar) {
             BottomBar(navController = navController)
         }
-    }) {
+    }) { innerPadding ->
         AnimatedNavHost(
             navController = navController,
             startDestination = AppScreens.Splash.route,
-            modifier = modifier
+            modifier = modifier.padding(innerPadding)
         ) {
             addSplashScreen(navController)
             addHomeScreen(navController)
