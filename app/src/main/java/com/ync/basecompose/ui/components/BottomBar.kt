@@ -7,10 +7,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.ync.basecompose.data.model.BottomBarTabs
+import com.ync.basecompose.ui.navigation.AppScreens
 
 /**
  * Created by mvn-cuongle-dn
@@ -51,8 +51,13 @@ fun RowScope.AddItem(
         unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.disabled),
         onClick = {
             navController.navigate(screen.route) {
-                popUpTo(navController.graph.findStartDestination().id)
+                navController.graph.find { it.route == AppScreens.Home.route }?.id?.let {
+                    popUpTo(it) {
+                        saveState = true
+                    }
+                }
                 launchSingleTop = true
+                restoreState = true
             }
         })
 }
