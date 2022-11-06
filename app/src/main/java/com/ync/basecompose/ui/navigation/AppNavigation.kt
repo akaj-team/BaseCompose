@@ -13,8 +13,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-import com.ync.basecompose.ui.components.BottomBar
 import com.ync.basecompose.data.model.BottomBarTabs
+import com.ync.basecompose.ui.components.BottomBar
 import com.ync.basecompose.ui.features.detail.DetailCoinScreen
 import com.ync.basecompose.ui.features.favorite.FavoriteScreen
 import com.ync.basecompose.ui.features.home.HomeScreen

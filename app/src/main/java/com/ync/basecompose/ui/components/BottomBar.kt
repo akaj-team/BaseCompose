@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -14,7 +15,6 @@ import com.ync.basecompose.data.model.BottomBarTabs
 /**
  * Created by mvn-cuongle-dn
  */
-
 
 @Composable
 fun BottomBar(navController: NavHostController) {
@@ -40,9 +40,10 @@ fun BottomBar(navController: NavHostController) {
 fun RowScope.AddItem(
     screen: BottomBarTabs, currentDestination: NavDestination?, navController: NavHostController
 ) {
-    BottomNavigationItem(label = {
-        Text(text = screen.title)
-    },
+    BottomNavigationItem(
+        label = {
+            Text(text = stringResource(id = screen.title))
+        },
         icon = {
             Icon(imageVector = screen.icon, contentDescription = "Navigation Icon")
         },
