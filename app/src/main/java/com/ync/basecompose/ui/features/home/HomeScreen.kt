@@ -44,13 +44,20 @@ fun HomeScreen(navController: NavController) {
                 )
             }
         } else {
-            ItemListView(items = viewState.item, navController)
+            ItemListView(items = viewState.item) {
+                navController.navigate(
+                    AppScreens.DetailCoin.routeWithArgsValue(
+                        AppScreens.ARGUMENT.COIN_ID.key to it.id,
+                        AppScreens.ARGUMENT.COIN_IMAGE.key to it.large
+                    )
+                )
+            }
         }
     }
 }
 
 @Composable
-fun ItemListView(items: List<Item>, navController: NavController) {
+fun ItemListView(items: List<Item>, onItemClicked: (Item) -> Unit) {
     LazyColumn {
         items(items) { item ->
             Row(
@@ -58,21 +65,15 @@ fun ItemListView(items: List<Item>, navController: NavController) {
                     .fillMaxWidth()
                     .padding(10.dp)
                     .clickable {
-                        navController.navigate(
-                            AppScreens.DetailCoin.routeWithArgsValue(
-                                AppScreens.ARGUMENT.COIN_ID.key to item.id,
-                                AppScreens.ARGUMENT.COIN_IMAGE.key to item.large
-                            )
-                        )
+                        onItemClicked.invoke(item)
                     }, verticalAlignment = Alignment.CenterVertically
             ) {
                 AsyncImage(
-                    model = item.large, contentDescription = "", modifier = Modifier.clip(
-                        CircleShape
-                    )
+                    model = item.large,
+                    contentDescription = "",
+                    modifier = Modifier.clip(CircleShape)
                 )
                 Spacer(modifier = Modifier.width(10.dp))
-
                 Text(text = item.name)
             }
             Spacer(modifier = Modifier.height(10.dp))

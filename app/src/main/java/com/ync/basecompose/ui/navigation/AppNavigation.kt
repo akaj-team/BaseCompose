@@ -1,8 +1,6 @@
 package com.ync.basecompose.ui.navigation
 
 import android.annotation.SuppressLint
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
@@ -60,7 +58,6 @@ fun AppNavigation(modifier: Modifier = Modifier) {
     }
 }
 
-
 @OptIn(ExperimentalAnimationApi::class)
 private fun NavGraphBuilder.addSplashScreen(navController: NavController) {
     composable(route = AppScreens.Splash.route) {
@@ -79,10 +76,10 @@ private fun NavGraphBuilder.addHomeScreen(
     navController: NavController
 ) {
     composable(route = AppScreens.Home.route,
-        exitTransition = { defaultExitTransition(initialState, targetState) },
-        enterTransition = { defaultEnterTransition(initialState, targetState) },
-        popEnterTransition = { EnterTransition.None },
-        popExitTransition = { ExitTransition.None }) {
+        exitTransition = { defaultExitTransition() },
+        enterTransition = { defaultEnterTransition() },
+        popEnterTransition = { defaultPopEnterTransition() },
+        popExitTransition = { defaultPopExitTransition() }) {
         HomeScreen(navController)
     }
 }
@@ -90,10 +87,10 @@ private fun NavGraphBuilder.addHomeScreen(
 @OptIn(ExperimentalAnimationApi::class)
 private fun NavGraphBuilder.addSearchScreen() {
     composable(route = AppScreens.Search.route,
-        exitTransition = { defaultExitTransition(initialState, targetState) },
-        enterTransition = { defaultEnterTransition(initialState, targetState) },
-        popEnterTransition = { EnterTransition.None },
-        popExitTransition = { ExitTransition.None }) {
+        exitTransition = { defaultExitTransition() },
+        enterTransition = { defaultEnterTransition() },
+        popEnterTransition = { defaultPopEnterTransition() },
+        popExitTransition = { defaultPopExitTransition() }) {
         SearchScreen()
     }
 }
@@ -101,10 +98,10 @@ private fun NavGraphBuilder.addSearchScreen() {
 @OptIn(ExperimentalAnimationApi::class)
 private fun NavGraphBuilder.addFavoriteScreen() {
     composable(route = AppScreens.Favorite.route,
-        exitTransition = { defaultExitTransition(initialState, targetState) },
-        enterTransition = { defaultEnterTransition(initialState, targetState) },
-        popEnterTransition = { EnterTransition.None },
-        popExitTransition = { ExitTransition.None }) {
+        exitTransition = { defaultExitTransition() },
+        enterTransition = { defaultEnterTransition() },
+        popEnterTransition = { defaultPopEnterTransition() },
+        popExitTransition = { defaultPopExitTransition() }) {
         FavoriteScreen()
     }
 }
@@ -113,10 +110,10 @@ private fun NavGraphBuilder.addFavoriteScreen() {
 private fun NavGraphBuilder.addDetailCoinScreen(navController: NavController) {
     composable(route = AppScreens.DetailCoin.routeArgs(),
         arguments = AppScreens.DetailCoin.namedNavArgs(),
-        exitTransition = { defaultExitTransition(initialState, targetState) },
-        enterTransition = { defaultEnterTransition(initialState, targetState) },
-        popEnterTransition = { EnterTransition.None },
-        popExitTransition = { ExitTransition.None }) {
+        exitTransition = { defaultExitTransition() },
+        enterTransition = { defaultEnterTransition() },
+        popEnterTransition = { defaultPopEnterTransition() },
+        popExitTransition = { defaultPopExitTransition() }) {
         DetailCoinScreen(
             navController,
             it.arguments?.getString(AppScreens.ARGUMENT.COIN_ID.key) ?: "",
