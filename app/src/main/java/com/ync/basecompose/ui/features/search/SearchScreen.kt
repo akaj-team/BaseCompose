@@ -1,10 +1,10 @@
 package com.ync.basecompose.ui.features.search
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
+import com.ync.basecompose.ui.components.BaseScreen
 
 /**
  * Created by mvn-cuongle-dn
@@ -12,7 +12,9 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun SearchScreen() {
-    Box(modifier = Modifier.fillMaxSize()) {
-        Text(text = "Search")
+    BaseScreen {
+        Box(contentAlignment = Alignment.Center) {
+            Text(text = "Search Screen")
+        }
     }
 }
