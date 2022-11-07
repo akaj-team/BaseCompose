@@ -37,6 +37,16 @@ fun BaseScreen(
         mutableStateOf(true)
     }
     val lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .background(background),
+        contentAlignment = contentAlignment
+    ) {
+        content.invoke(this)
+    }
+
     viewModel?.run {
         val loadingState by loadingFlow.collectAsState()
         val commonErrorState by viewErrorFlow.collectAsState(Throwable())
@@ -49,16 +59,6 @@ fun BaseScreen(
                 onErrorClicked.invoke(it)
             }
         }
-    }
-
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .background(background),
-        contentAlignment = contentAlignment
-    ) {
-        content.invoke(this)
     }
 
     //handle lifecycle event
