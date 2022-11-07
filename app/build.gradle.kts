@@ -112,4 +112,6 @@ dependencies {
 
     //Coil Image loader
     implementation("io.coil-kt:coil-compose:2.2.2")
+
+    implementation("com.google.accompanist:accompanist-pager-indicators:0.23.1")
 }
