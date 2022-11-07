@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
-import com.ync.basecompose.arch.extentions.onBottomReached
+import com.ync.basecompose.arch.extentions.OnBottomReached
 import com.ync.basecompose.data.model.Exchanges
 import com.ync.basecompose.ui.components.BaseScreen
 
@@ -32,7 +32,9 @@ fun FavoriteScreen() {
     BaseScreen(
         viewModel = viewModel,
         background = Color.White,
-        onCreate = { viewModel.getExchanges() }) {
+        onCreate = {
+            viewModel.getExchanges()
+        }) {
         ItemListView(items = viewState.item, viewModel)
     }
 }
@@ -60,8 +62,7 @@ fun ItemListView(items: List<Exchanges>, viewModel: FavoriteViewModel) {
             Spacer(modifier = Modifier.height(10.dp))
         }
     }
-    listState.onBottomReached {
-        if (viewModel.isFirstLoad)
-            viewModel.getExchanges(true)
+    listState.OnBottomReached {
+        viewModel.getExchanges(true)
     }
 }
