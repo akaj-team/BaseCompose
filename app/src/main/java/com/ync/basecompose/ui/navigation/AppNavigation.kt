@@ -126,10 +126,10 @@ private fun NavGraphBuilder.addDetailCoinScreen(navController: NavController) {
 private fun NavGraphBuilder.addAboutCoinGeckoScreen(navController: NavController) {
     composable(route = AppScreens.About.routeArgs(),
         arguments = AppScreens.About.namedNavArgs(),
-        exitTransition = { defaultExitTransition(initialState, targetState) },
-        enterTransition = { defaultEnterTransition(initialState, targetState) },
-        popEnterTransition = { EnterTransition.None },
-        popExitTransition = { ExitTransition.None }) {
+        exitTransition = { defaultExitTransition() },
+        enterTransition = { defaultEnterTransition() },
+        popEnterTransition = { defaultPopEnterTransition() },
+        popExitTransition = { defaultPopExitTransition() }) {
         AboutCoinGeckoScreen(navController)
     }
 }
