@@ -36,6 +36,7 @@ fun <T> LazyColumnLoadMore(
 fun <T> LazyVerticalGridLoadMore(
     items: List<T>,
     columns: GridCells,
+    threadHold: Int = 0,
     contentPadding: PaddingValues = PaddingValues(),
     onLoadMore: () -> Unit,
     itemContent: @Composable LazyGridItemScope.(item: T) -> Unit
@@ -49,7 +50,7 @@ fun <T> LazyVerticalGridLoadMore(
             itemContent.invoke(this, item)
         }
     }
-    listState.OnBottomReached {
+    listState.OnBottomReached(threadHold) {
         onLoadMore.invoke()
     }
 }
