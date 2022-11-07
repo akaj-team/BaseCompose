@@ -23,7 +23,7 @@ class FavoriteViewModel @Inject constructor(private val exchangeRepository: Exch
 
     val favoriteUiViewState = MutableStateFlow(FavoriteUIViewState())
     private var currentPage = 1
-    override fun getExchanges(isLoadMore: Boolean) {
+    override fun getExchanges() {
         exchangeRepository.getExchanges(PER_PAGE, currentPage)
             .bindLoading(this)
             .bindError(this)
