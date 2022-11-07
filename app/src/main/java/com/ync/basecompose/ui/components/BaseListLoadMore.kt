@@ -2,11 +2,9 @@ package com.ync.basecompose.ui.components
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyGridScope
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.lazy.LazyItemScope
+import androidx.compose.foundation.lazy.grid.*
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import com.ync.basecompose.arch.extentions.OnBottomReached
@@ -16,32 +14,40 @@ import com.ync.basecompose.arch.extentions.OnBottomReached
  **/
 
 @Composable
-fun LazyColumnLoadMore(
+fun <T> LazyColumnLoadMore(
+    items: List<T>,
     contentPadding: PaddingValues = PaddingValues(),
+    threadHold: Int = 0,
     onLoadMore: () -> Unit,
-    content: LazyListScope.() -> Unit
+    itemContent: @Composable LazyItemScope.(item: T) -> Unit
 ) {
     val listState = rememberLazyListState()
     LazyColumn(state = listState, contentPadding = contentPadding) {
-        content.invoke(this)
+        items(items) { item ->
+            itemContent.invoke(this, item)
+        }
     }
-    listState.OnBottomReached {
+    listState.OnBottomReached(threadHold) {
         onLoadMore.invoke()
     }
 }
 
 @Composable
-fun LazyVerticalGridLoadMore(
+fun <T> LazyVerticalGridLoadMore(
+    items: List<T>,
     columns: GridCells,
     contentPadding: PaddingValues = PaddingValues(),
-    onLoadMore: () -> Unit, content: LazyGridScope.() -> Unit
+    onLoadMore: () -> Unit,
+    itemContent: @Composable LazyGridItemScope.(item: T) -> Unit
 ) {
     val listState = rememberLazyGridState()
     LazyVerticalGrid(
         state = listState, columns = columns,
         contentPadding = contentPadding
     ) {
-        content.invoke(this)
+        items(items) { item ->
+            itemContent.invoke(this, item)
+        }
     }
     listState.OnBottomReached {
         onLoadMore.invoke()

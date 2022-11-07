@@ -1,7 +1,6 @@
 package com.ync.basecompose.ui.features.favorite
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -36,25 +35,23 @@ fun FavoriteScreen() {
 
 @Composable
 fun ItemListView(items: List<Exchanges>, viewModel: FavoriteViewModel) {
-    LazyColumnLoadMore(contentPadding = PaddingValues(bottom = 10.dp), onLoadMore = {
+    LazyColumnLoadMore(items, contentPadding = PaddingValues(bottom = 10.dp), onLoadMore = {
         viewModel.getExchanges()
-    }) {
-        items(items) { item ->
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                AsyncImage(
-                    model = item.imageUrl, contentDescription = "", modifier = Modifier.clip(
-                        CircleShape
-                    )
+    }) { item ->
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            AsyncImage(
+                model = item.imageUrl, contentDescription = "", modifier = Modifier.clip(
+                    CircleShape
                 )
-                Spacer(modifier = Modifier.width(10.dp))
+            )
+            Spacer(modifier = Modifier.width(10.dp))
 
-                Text(text = item.name ?: "")
-            }
+            Text(text = item.name ?: "")
         }
     }
 }
