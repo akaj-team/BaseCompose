@@ -36,7 +36,6 @@ fun TopAppBarNav(navController: NavController) {
         actions = {
             Row(horizontalArrangement = Arrangement.End) {
                 IconButton(onClick = {
-                    //DropdownMenu(showMenu = showMenu)
                     showMenu.value = !showMenu.value
                 }) {
                     Icon(Icons.Filled.Menu, "menuIcon")
@@ -80,6 +79,7 @@ fun ShowSettingDropDownMenu(navController: NavController, onDismissRequest: () -
                         0 -> {
                             navController.navigate(AppScreens.About.route)
                         }
+                        1 -> {}
                     }
                 }) {
                     Text(text = title, maxLines = 1)
