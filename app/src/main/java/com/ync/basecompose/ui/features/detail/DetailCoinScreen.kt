@@ -1,5 +1,6 @@
 package com.ync.basecompose.ui.features.detail
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -28,29 +29,26 @@ import com.ync.basecompose.ui.components.BaseScreen
  * Created by mvn-cuongle-dn
  */
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun DetailCoinScreen(navController: NavController, id: String, imageCoin: String) {
     val viewModel: DetailCoinViewModel = hiltViewModel()
     val viewState by viewModel.detailCoinUiViewState.collectAsState()
 
-    BaseScreen(viewModel = viewModel, onCreate = {
-        viewModel.getDetailCoin(id)
-    },
-        onErrorClicked = {
+    BaseScreen(
+        viewModel = viewModel,
+        onCreate = {
+            viewModel.getDetailCoin(id)
+        }, onErrorClicked = {
             navController.navigateUp()
         }
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            DetailScreenAppBar(navController)
+        Scaffold(topBar = { DetailScreenAppBar(navController = navController) }) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(10.dp)
             ) {
-
                 Row(modifier = Modifier.padding(top = 20.dp)) {
                     AsyncImage(
                         model = imageCoin, contentDescription = "", modifier = Modifier.clip(
