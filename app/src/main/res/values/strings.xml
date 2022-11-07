@@ -5,4 +5,8 @@
     <string name="platform">Platform: %s</string>
     <string name="detail_screen_title">"Detail Coin"</string>
     <string name="available_platform_title">"Available Platform"</string>
+    <string name="home_feed">Home</string>
+    <string name="home_search">Search</string>
+    <string name="home_cart">Card</string>
+    <string name="home_profile">Profile</string>
 </resources>
