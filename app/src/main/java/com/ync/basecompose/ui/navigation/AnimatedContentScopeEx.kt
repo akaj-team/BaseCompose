@@ -1,7 +1,6 @@
 package com.ync.basecompose.ui.navigation
 
 import androidx.compose.animation.*
-import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph
@@ -11,29 +10,13 @@ import androidx.navigation.NavGraph
  * Created by mvn-ynguyen-dn on 11/1/22.
  */
 @ExperimentalAnimationApi
-internal fun AnimatedContentScope<*>.defaultEnterTransition(
-    initial: NavBackStackEntry,
-    target: NavBackStackEntry
-): EnterTransition {
-    val initialNavGraph = initial.destination.hostNavGraph
-    val targetNavGraph = target.destination.hostNavGraph
-    if (initialNavGraph.id != targetNavGraph.id) {
-        return fadeIn()
-    }
-    return fadeIn() + slideIntoContainer(AnimatedContentScope.SlideDirection.Start)
+internal fun AnimatedContentScope<*>.defaultEnterTransition(): EnterTransition {
+    return fadeIn() + slideInHorizontally(initialOffsetX = { 300 })
 }
 
 @ExperimentalAnimationApi
-internal fun AnimatedContentScope<*>.defaultExitTransition(
-    initial: NavBackStackEntry,
-    target: NavBackStackEntry
-): ExitTransition {
-    val initialNavGraph = initial.destination.hostNavGraph
-    val targetNavGraph = target.destination.hostNavGraph
-    if (initialNavGraph.id != targetNavGraph.id) {
-        return fadeOut()
-    }
-    return fadeOut() + slideOutOfContainer(AnimatedContentScope.SlideDirection.Start)
+internal fun AnimatedContentScope<*>.defaultExitTransition(): ExitTransition {
+    return fadeOut() + slideOutHorizontally(targetOffsetX = { -300 })
 }
 
 internal val NavDestination.hostNavGraph: NavGraph
@@ -41,10 +24,10 @@ internal val NavDestination.hostNavGraph: NavGraph
 
 @ExperimentalAnimationApi
 internal fun AnimatedContentScope<*>.defaultPopEnterTransition(): EnterTransition {
-    return fadeIn() + slideIntoContainer(AnimatedContentScope.SlideDirection.End)
+    return fadeIn() + slideInHorizontally(initialOffsetX = { -300 })
 }
 
 @ExperimentalAnimationApi
 internal fun AnimatedContentScope<*>.defaultPopExitTransition(): ExitTransition {
-    return fadeOut() + slideOutOfContainer(AnimatedContentScope.SlideDirection.End)
+    return fadeOut() + slideOutHorizontally(targetOffsetX = { 300 })
 }
