@@ -55,6 +55,7 @@ fun ShowSettingDropDownMenu(navController: NavController, onDismissRequest: () -
     var expanded by remember { mutableStateOf(true) }
     val items = listOf(
         stringResource(R.string.drop_menu_item_title_more),
+        stringResource(R.string.drop_menu_item_title_my_wallet),
         stringResource(R.string.drop_menu_item_title_help)
     )
     Column(
@@ -79,7 +80,10 @@ fun ShowSettingDropDownMenu(navController: NavController, onDismissRequest: () -
                         0 -> {
                             navController.navigate(AppScreens.About.route)
                         }
-                        1 -> {}
+                        1 -> {
+                            navController.navigate(AppScreens.MyWallet.route)
+                        }
+                        2 -> {}
                     }
                 }) {
                     Text(text = title, maxLines = 1)
