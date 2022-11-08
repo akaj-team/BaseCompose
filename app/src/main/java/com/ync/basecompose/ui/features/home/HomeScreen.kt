@@ -13,10 +13,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.ync.basecompose.R
 import com.ync.basecompose.data.model.Item
 import com.ync.basecompose.ui.components.BaseScreen
 import com.ync.basecompose.ui.navigation.AppScreens
@@ -32,13 +36,22 @@ fun HomeScreen(navController: NavController) {
     BaseScreen(viewModel = viewModel, background = Color.White, onCreate = {
         viewModel.getTrending()
     }) {
-        ItemListView(items = viewState.item) {
-            navController.navigate(
-                AppScreens.DetailCoin.routeWithArgsValue(
-                    AppScreens.ARGUMENT.COIN_ID.key to it.id,
-                    AppScreens.ARGUMENT.COIN_IMAGE.key to it.large
+        if (viewState.item.isEmpty()) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Text(
+                    text = stringResource(R.string.trending_coin_empty_title), fontSize = 22.sp,
+                    fontWeight = FontWeight.Bold
                 )
-            )
+            }
+        } else {
+            ItemListView(items = viewState.item) {
+                navController.navigate(
+                    AppScreens.DetailCoin.routeWithArgsValue(
+                        AppScreens.ARGUMENT.COIN_ID.key to it.id,
+                        AppScreens.ARGUMENT.COIN_IMAGE.key to it.large
+                    )
+                )
+            }
         }
     }
 }

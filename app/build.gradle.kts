@@ -112,4 +112,10 @@ dependencies {
 
     //Coil Image loader
     implementation("io.coil-kt:coil-compose:2.2.2")
+
+    //View Pager
+    implementation("com.google.accompanist:accompanist-pager-indicators:0.23.1")
+
+    //Constraint Layout
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 }

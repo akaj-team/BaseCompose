@@ -30,6 +30,8 @@ sealed class AppScreens(var route: String) {
     object DetailCoin : AppScreens("detail_coin")
     object Search : AppScreens("search_screen")
     object Favorite : AppScreens("favorite_screen")
+    object About : AppScreens("about_screen")
+    object MyWallet : AppScreens("my_wallet_screen")
 
     fun routeWithArgsValue(vararg value: Pair<String, Any>): String {
         var routeArg = routeArgs()

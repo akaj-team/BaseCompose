@@ -14,9 +14,12 @@ import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.ync.basecompose.data.model.BottomBarTabs
 import com.ync.basecompose.ui.components.BottomBar
+import com.ync.basecompose.ui.components.TopAppBarNav
+import com.ync.basecompose.ui.features.about.AboutCoinGeckoScreen
 import com.ync.basecompose.ui.features.detail.DetailCoinScreen
 import com.ync.basecompose.ui.features.favorite.FavoriteScreen
 import com.ync.basecompose.ui.features.home.HomeScreen
+import com.ync.basecompose.ui.features.mywallet.MyWalletScreen
 import com.ync.basecompose.ui.features.search.SearchScreen
 import com.ync.basecompose.ui.features.splash.SplashScreen
 
@@ -36,6 +39,10 @@ fun AppNavigation(modifier: Modifier = Modifier) {
         if (isShouldShowBottomBar) {
             BottomBar(navController = navController)
         }
+    }, topBar = {
+        if (isShouldShowBottomBar) {
+            TopAppBarNav(navController)
+        }
     }) { innerPadding ->
         AnimatedNavHost(
             navController = navController,
@@ -47,6 +54,8 @@ fun AppNavigation(modifier: Modifier = Modifier) {
             addSearchScreen()
             addFavoriteScreen()
             addDetailCoinScreen(navController)
+            addAboutCoinGeckoScreen(navController)
+            addMyWalletScreen(navController)
         }
     }
 }
@@ -112,5 +121,29 @@ private fun NavGraphBuilder.addDetailCoinScreen(navController: NavController) {
             it.arguments?.getString(AppScreens.ARGUMENT.COIN_ID.key) ?: "",
             it.arguments?.getString(AppScreens.ARGUMENT.COIN_IMAGE.key) ?: ""
         )
+    }
+}
+
+@OptIn(ExperimentalAnimationApi::class)
+private fun NavGraphBuilder.addAboutCoinGeckoScreen(navController: NavController) {
+    composable(route = AppScreens.About.routeArgs(),
+        arguments = AppScreens.About.namedNavArgs(),
+        exitTransition = { defaultExitTransition() },
+        enterTransition = { defaultEnterTransition() },
+        popEnterTransition = { defaultPopEnterTransition() },
+        popExitTransition = { defaultPopExitTransition() }) {
+        AboutCoinGeckoScreen(navController)
+    }
+}
+
+@OptIn(ExperimentalAnimationApi::class)
+private fun NavGraphBuilder.addMyWalletScreen(navController: NavController) {
+    composable(route = AppScreens.MyWallet.routeArgs(),
+        arguments = AppScreens.MyWallet.namedNavArgs(),
+        exitTransition = { defaultExitTransition() },
+        enterTransition = { defaultEnterTransition() },
+        popEnterTransition = { defaultPopEnterTransition() },
+        popExitTransition = { defaultPopExitTransition() }) {
+        MyWalletScreen()
     }
 }
