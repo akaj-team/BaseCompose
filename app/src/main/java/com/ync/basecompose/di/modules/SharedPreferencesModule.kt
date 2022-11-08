@@ -2,7 +2,8 @@ package com.ync.basecompose.di.modules
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.ync.basecompose.BuildConfig
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,14 +17,17 @@ import javax.inject.Singleton
  */
 @InstallIn(SingletonComponent::class)
 @Module
-class DataModule {
+class SharedPreferencesModule {
 
     @Singleton
     @Provides
     fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
-        return context.getSharedPreferences(
-            "${BuildConfig.APPLICATION_ID}_preferences",
-            Context.MODE_PRIVATE
+        return EncryptedSharedPreferences.create(
+            "secure_prefs",
+            MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
+            context,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
     }
 }

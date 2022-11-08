@@ -3,6 +3,7 @@ package com.ync.basecompose.di.modules
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.ync.basecompose.BuildConfig
 import com.ync.basecompose.data.network.Api
+import com.ync.basecompose.data.repository.LocalRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,25 +26,25 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 class RestModule {
-
-    companion object {
-        var apiInstance: Api? = null
-    }
-
     @Provides
     @Singleton
-    fun provideHttpClient(): OkHttpClient {
+    fun provideHttpClient(
+        localRepository: LocalRepository
+    ): OkHttpClient {
         val clientBuilder = OkHttpClient.Builder()
         clientBuilder.interceptors().add(Interceptor { chain ->
             val original = chain.request()
+
             // Request customization: add request headers
             val requestBuilder = original.newBuilder()
                 .method(original.method, original.body)
             requestBuilder.addHeader("Content-Type", "application/json")
-//            requestBuilder.addHeader(
-//                "Authorization",
-//                "token 8dcc1542a16daaa11c0ed5c3b7add287fdb28ec1"
-//            )
+            requestBuilder.addHeader("Accept", "application/json")
+            requestBuilder.addHeader("User-Agent", getUserAgent())
+            requestBuilder.addHeader(
+                "Authorization",
+                "token ${localRepository.getAcesstoken()}"
+            )
             val request = requestBuilder.build()
             chain
                 .withConnectTimeout(40, TimeUnit.SECONDS)
@@ -58,9 +59,10 @@ class RestModule {
             logging.level = HttpLoggingInterceptor.Level.BODY
             clientBuilder.addInterceptor(logging)
         }
-
         return clientBuilder.build()
     }
+
+    private fun getUserAgent(): String = ""
 
     @Provides
     @Singleton
@@ -85,8 +87,6 @@ class RestModule {
     @Provides
     @Singleton
     fun provideApi(retrofit: Retrofit): Api {
-        return retrofit.create(Api::class.java).also {
-            apiInstance = it
-        }
+        return retrofit.create(Api::class.java)
     }
 }
