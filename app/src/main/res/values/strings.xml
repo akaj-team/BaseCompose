@@ -8,7 +8,7 @@
     <string name="home_feed">Home</string>
     <string name="home_search">Search</string>
     <string name="home_cart">Card</string>
-    <string name="home_profile">Profile</string>
+    <string name="home_favorite">Favorite</string>
     <string name="app_tool_bar_title">Coin Gecko Compose</string>
     <string name="drop_menu_item_title_more">More About Coin Gecko</string>
     <string name="drop_menu_item_title_help">Help</string>

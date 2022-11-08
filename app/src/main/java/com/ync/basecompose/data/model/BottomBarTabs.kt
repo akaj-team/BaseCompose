@@ -26,7 +26,7 @@ enum class BottomBarTabs(
     ),
     FAVORITE(
         route = AppScreens.Favorite.route,
-        title = R.string.home_profile,
+        title = R.string.home_favorite,
         icon = Icons.Default.Favorite
     )
 }
