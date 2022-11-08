@@ -115,4 +115,7 @@ dependencies {
 
     //View Pager
     implementation("com.google.accompanist:accompanist-pager-indicators:0.23.1")
+
+    //Constraint Layout
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 }

@@ -19,6 +19,7 @@ import com.ync.basecompose.ui.features.about.AboutCoinGeckoScreen
 import com.ync.basecompose.ui.features.detail.DetailCoinScreen
 import com.ync.basecompose.ui.features.favorite.FavoriteScreen
 import com.ync.basecompose.ui.features.home.HomeScreen
+import com.ync.basecompose.ui.features.mywallet.MyWalletScreen
 import com.ync.basecompose.ui.features.search.SearchScreen
 import com.ync.basecompose.ui.features.splash.SplashScreen
 
@@ -54,6 +55,7 @@ fun AppNavigation(modifier: Modifier = Modifier) {
             addFavoriteScreen()
             addDetailCoinScreen(navController)
             addAboutCoinGeckoScreen(navController)
+            addMyWalletScreen(navController)
         }
     }
 }
@@ -131,5 +133,17 @@ private fun NavGraphBuilder.addAboutCoinGeckoScreen(navController: NavController
         popEnterTransition = { defaultPopEnterTransition() },
         popExitTransition = { defaultPopExitTransition() }) {
         AboutCoinGeckoScreen(navController)
+    }
+}
+
+@OptIn(ExperimentalAnimationApi::class)
+private fun NavGraphBuilder.addMyWalletScreen(navController: NavController) {
+    composable(route = AppScreens.MyWallet.routeArgs(),
+        arguments = AppScreens.MyWallet.namedNavArgs(),
+        exitTransition = { defaultExitTransition() },
+        enterTransition = { defaultEnterTransition() },
+        popEnterTransition = { defaultPopEnterTransition() },
+        popExitTransition = { defaultPopExitTransition() }) {
+        MyWalletScreen()
     }
 }
