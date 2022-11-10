@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
  * Created by mvn-cuongle-dn
  */
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun AboutCoinGeckoScreen(navController: NavController) {
