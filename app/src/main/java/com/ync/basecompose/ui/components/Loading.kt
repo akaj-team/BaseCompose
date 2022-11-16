@@ -8,9 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
-import com.ync.basecompose.arch.extentions.noRippleClickable
+import androidx.compose.ui.window.Popup
+import androidx.compose.ui.window.PopupProperties
 
 /**
  * Copyright © Monstarlab Vietnam Co., Ltd.
@@ -19,16 +18,20 @@ import com.ync.basecompose.arch.extentions.noRippleClickable
 @Composable
 fun Loading(isShow: Boolean) {
     if (isShow) {
-        Dialog(
+        Popup(
             onDismissRequest = {},
-            DialogProperties(dismissOnBackPress = false, dismissOnClickOutside = false)
+            properties = PopupProperties(
+                focusable = true,
+                dismissOnBackPress = false,
+                dismissOnClickOutside = false,
+                excludeFromSystemGesture = true,
+            )
         ) {
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
                     .fillMaxSize()
                     .background(Color.Transparent)
-                    .noRippleClickable { }
             ) {
                 CircularProgressIndicator()
             }
