@@ -8,7 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.ync.basecompose.arch.extentions.noRippleClickable
+import androidx.compose.ui.window.Popup
+import androidx.compose.ui.window.PopupProperties
 
 /**
  * Copyright © Monstarlab Vietnam Co., Ltd.
@@ -17,14 +18,23 @@ import com.ync.basecompose.arch.extentions.noRippleClickable
 @Composable
 fun Loading(isShow: Boolean) {
     if (isShow) {
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color.Transparent)
-                .noRippleClickable { }
+        Popup(
+            onDismissRequest = {},
+            properties = PopupProperties(
+                focusable = true,
+                dismissOnBackPress = false,
+                dismissOnClickOutside = false,
+                excludeFromSystemGesture = true,
+            )
         ) {
-            CircularProgressIndicator()
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Transparent)
+            ) {
+                CircularProgressIndicator()
+            }
         }
     }
 }
