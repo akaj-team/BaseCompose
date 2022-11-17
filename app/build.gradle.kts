@@ -29,19 +29,23 @@ android {
             isMinifyEnabled = false
             applicationIdSuffix = ".debug"
         }
+        create("benchmark") {
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks += listOf("release")
+            isDebuggable = true
+        }
 
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
 
     applicationVariants.all {
         when (name) {
-            "debug" -> {
+            "debug", "benchmark" -> {
                 buildConfigField("String", "API_URL", "\"https://api.coingecko.com/api/v3/\"")
             }
         }
@@ -118,4 +122,6 @@ dependencies {
 
     //Constraint Layout
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+
+    implementation("androidx.profileinstaller:profileinstaller:1.2.0")
 }
