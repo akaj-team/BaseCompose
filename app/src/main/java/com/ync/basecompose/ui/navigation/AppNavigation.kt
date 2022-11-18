@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalComposeUiApi::class)
+
 package com.ync.basecompose.ui.navigation
 
 import android.annotation.SuppressLint
@@ -5,7 +7,10 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -47,7 +52,9 @@ fun AppNavigation(modifier: Modifier = Modifier) {
         AnimatedNavHost(
             navController = navController,
             startDestination = AppScreens.Splash.route,
-            modifier = modifier.padding(innerPadding)
+            modifier = modifier.padding(innerPadding).semantics {
+                testTagsAsResourceId = true
+            }
         ) {
             addSplashScreen(navController)
             addHomeScreen(navController)

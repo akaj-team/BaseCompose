@@ -8,4 +8,5 @@ plugins {
     id("org.jetbrains.kotlin.kapt") version "1.7.20"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.4.30"
     id("com.google.dagger.hilt.android") version "2.44" apply false
+    id("com.android.test") version "7.3.1" apply false
 }
