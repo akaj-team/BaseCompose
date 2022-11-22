@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,6 +17,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.ync.basecompose.R
@@ -29,10 +30,11 @@ import com.ync.basecompose.ui.navigation.AppScreens
  * Copyright © Monstarlab Vietnam Co., Ltd.
  * Created by mvn-ynguyen-dn on 11/1/22.
  */
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun HomeScreen(navController: NavController) {
     val viewModel: HomeViewModel = hiltViewModel()
-    val viewState by viewModel.homeUiViewState.collectAsState()
+    val viewState by viewModel.homeUiViewState.collectAsStateWithLifecycle()
     BaseScreen(viewModel = viewModel, background = Color.White, onCreate = {
         viewModel.getTrending()
     }) {
