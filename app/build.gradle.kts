@@ -84,6 +84,7 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:${rootProject.ext.get("composeVersion")}")
     debugImplementation("androidx.compose.ui:ui-tooling:${rootProject.ext.get("composeVersion")}")
     debugImplementation("androidx.compose.ui:ui-test-manifest:${rootProject.ext.get("composeVersion")}")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha03")
 
     //Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
@@ -114,7 +115,7 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.2.2")
 
     //View Pager
-    implementation("com.google.accompanist:accompanist-pager-indicators:0.23.1")
+    implementation("com.google.accompanist:accompanist-pager-indicators:0.27.0")
 
     //Constraint Layout
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")

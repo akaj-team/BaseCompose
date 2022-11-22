@@ -12,6 +12,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.ync.basecompose.data.model.Exchanges
 import com.ync.basecompose.ui.components.BaseScreen
@@ -21,10 +23,11 @@ import com.ync.basecompose.ui.components.LazyColumnLoadMore
  * Created by mvn-cuongle-dn
  */
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun FavoriteScreen() {
     val viewModel: FavoriteViewModel = hiltViewModel()
-    val viewState by viewModel.favoriteUiViewState.collectAsState()
+    val viewState by viewModel.favoriteUiViewState.collectAsStateWithLifecycle()
 
     BaseScreen(viewModel = viewModel, background = Color.White, onCreate = {
         viewModel.getExchanges()

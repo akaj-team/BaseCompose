@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.*
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ync.basecompose.arch.base.BaseViewModel
 import com.ync.basecompose.data.network.error.ErrorModel
 
@@ -19,6 +21,7 @@ import com.ync.basecompose.data.network.error.ErrorModel
  * Copyright © Monstarlab Vietnam Co., Ltd.
  * Created by mvn-ynguyen-dn on 11/2/22.
  */
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun BaseScreen(
     viewModel: BaseViewModel? = null,
@@ -48,8 +51,8 @@ fun BaseScreen(
     }
 
     viewModel?.run {
-        val loadingState by loadingFlow.collectAsState()
-        val commonErrorState by viewErrorFlow.collectAsState(Throwable())
+        val loadingState by loadingFlow.collectAsStateWithLifecycle()
+        val commonErrorState by viewErrorFlow.collectAsStateWithLifecycle(Throwable())
         Loading(isShow = loadingState)
         CommonError(throwable = commonErrorState) {
             dismissError()
